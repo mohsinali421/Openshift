@@ -1,0 +1,15 @@
+{
+  "name": "openshift",
+  "version": "1.0.0",
+  "description": "- Redhat Console Sandbox - [https://console.redhat.com/openshift/sandbox]",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
