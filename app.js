@@ -1,5 +1,12 @@
 const app = require("express")()
+const fs = require("fs")
 app.get("/", (req,res) => {
+    res.json("This is webhook version for webhook")
+})
+app.get("/read", (req,res) => {
+    console.log("Reading file contents")
+    let d = fs.readFileSync("./myfilte.txt",'utf-8')
+    console.log(d);
     res.json("This is webhook version for webhook")
 })
 app.listen(3000, () => {
