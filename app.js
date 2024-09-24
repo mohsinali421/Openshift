@@ -5,7 +5,7 @@ app.get("/", (req,res) => {
 })
 app.get("/read", (req,res) => {
     console.log("Reading file contents")
-    let d = fs.readFileSync("/myfilte.txt",'utf-8')
+    let d = fs.readFileSync("/mnt/myfilte.txt",'utf-8')
     console.log(d);
     res.json("This is webhook version for webhook")
 })
