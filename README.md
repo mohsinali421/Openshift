@@ -65,7 +65,7 @@
 ### Deployment config  [managing multiple pods deployemnt]
 - oc explain deploymentconfig
 - oc version   [version 4, --as-deployment-config for v4, omit for v3]
-- oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+- oc new-app mohsinali421/docker_hub_image_for_node21:latest --as-deployment-config
 - oc status
 - oc get pod
 - oc get svc     [svc - service]
@@ -83,7 +83,7 @@
 - oc status
 
 ### Naming Deployments
-- oc new-app quay.io/practicalopenshift/hello-world --name demo-app --as-deployment-config
+- oc new-app mohsinali421/docker_hub_image_for_node21:latest --name demo-app --as-deployment-config
 - oc status
 
 ### Deploy from git repo
@@ -95,7 +95,7 @@
 
 ### Rollout-Rollback
 - oc get pods --watch   [ 2 terminal required ]
-- oc new-app quay.io/practicalopenshift/hello-world --name demo-app  --as-deployment-config
+- oc new-app mohsinali421/docker_hub_image_for_node21:latest --name demo-app  --as-deployment-config
 - oc rollout latest dc/demo-app
 - oc rollback dc/demo-app
 - oc rollout history dc/simple-docker-app
@@ -146,14 +146,100 @@
 - oc create secret generic my-secret --from-literal MESSAGE=secret
 - oc get secret
 - oc get -o yaml secret/my-secret - [base 64 encoded value]
+- oc create secret generic tbk-interceptor --from-literal=KEY=hellomymohsin123  --dry-run=client -o yaml | oc apply -f -      [Add another secret in existing]
+- oc delete secret/my-secret
 
 ### Consuming Secrets
-- oc new-app quay.io/practicalopenshift/hello-world --as-deployment-config
+- oc new-app mohsinali421/docker_hub_image_for_node21:latest --as-deployment-config
 - oc expose svc/hello-world
 - oc status
 - curl http://hello-world-mohsinali421-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com
-- oc set env dc/hello-world --from secret/my-secret4- curl http://hello-world-mohsinali421-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com
+- oc set env dc/hello-world --from secret/my-secret
+- curl http://hello-world-mohsinali421-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com
 - oc get -o yaml dc/hello-world
 
+### Image Streams
+- oc get is
+- oc get istag
+- oc delete is/hello-world
+- oc import-image --confirm mohsinali421/docker_hub_image_for_node21:latest
+- oc describe istag/hello-world:latest
 
-### Integration with Automatic Github Webhook Trigger
+### Deploye new app using Image Stream
+- oc new-app project-name/imagestream
+
+### Image stream tagging
+- oc tag [original]  [destination]
+- oc tag docker-hub-image-for-node21:latest  docker-hub-image-for-node21:latest
+
+### Image stream for private images
+- oc create secret docker-registry my-secret-for-docker \
+    --docker-server=$REGISTRY \
+    --docker-username=$REGISTRY_USERNAME \
+    --docker-password=$REGISTRY_PASSWORD \
+    --docker-email=$REGISTRY_EMAIL
+- oc secrets link default \
+    my-secret-for-docker \
+    --for-pull
+- oc describe serviceaccount/default
+- oc new-app mohsinali421/private/docker_hub_image_for_node21:latest
+
+## Builds
+- just like docker build command to build container
+- buildConfig contains information about how build should get created
+- oc new-app dockerRepo - is same like building image from source code 
+- oc new-build https://github.com/mohsinali421/Docker
+- oc get -o yaml buildconfig/docker
+- oc get build
+- oc get pod
+
+### Watch logs for build
+- oc logs -f buildconfig/docker  
+- oc logs -f bc/docker   => latest build logs
+- oc logs -f pod/docker-3-build
+
+### Start/Cancel a build
+- oc start-build buildName 
+- oc describe is/buildName  - image stream
+- oc cancel-build bc/buildName
+
+## Webhooks
+- git triggers build automatically, HTTPS endpoint using tokens
+- use generic secrets - oc get -o yaml buildconfig/docker
+
+### Build in a directory
+- oc new-build gitHubURL --context-dir myDir
+
+### Post commit build hooks
+- oc set build-hook bc/customName --post-commit --script="echo It runs successfully"
+- oc logs -f bc/customName
+-  oc set build-hook bc/customName --post-commit --script="exit 1"   => failed hook
+- oc set build-hook bc/customName --post-commit --remove
+
+## S2I Source to Image
+- transform application source code into image
+- no need to write Dockerfile
+- can use existing builder images
+- oc new-app gitHubRepo --context-dir s2i/nodejs --as-deployment-config
+- oc delete all --all
+
+## Volumes
+- Files - configmaps, secrets, hard disks, cloud storage - s3
+- Empty Directory Volume - pod removed from node, rollout, etc
+- oc set volume dc/hello-world --add \
+    --type emptyDir \
+    --mount-path /empty-dir
+- oc get -o yaml dc/hello-world
+- Use of empty volume - data that needs to be cached for temporary files
+- ConfigMap volumes - directly use config map as key value
+- oc create configmap tbk-interceptor --from-literal MESSAGE="BOSS"
+- oc set volume dc/hello-world --add \
+    --configmap-name tbk-interceptor \
+    --mount-path /cmPath
+
+## Other Volume Integration
+- [https://kubernetes.io/docs/concepts/storage/volumes/]
+- oc explian persistentvolume.spec
+
+
+

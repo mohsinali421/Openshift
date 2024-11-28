@@ -1,7 +1,7 @@
-FROM node:10-alpine
+FROM alpine:3.19
+ENV NODE_VERSION 23.3.0
 WORKDIR /
-COPY package*.json ./
+COPY package.json ./
 RUN npm install
 COPY . .
-EXPOSE 3000
 CMD [ "npm", "start" ]
