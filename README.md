@@ -3,7 +3,27 @@
 
 <img width="583" height="237" alt="image" src="https://github.com/user-attachments/assets/6889ad6f-d610-4f5b-8405-537caa9a8ea1" />
 
+<img width="830" height="407" alt="image" src="https://github.com/user-attachments/assets/e205ac8b-041e-4a7b-9f83-198202ba39e3" />
 
+<img width="767" height="317" alt="image" src="https://github.com/user-attachments/assets/dad96a2c-0d2a-4a13-85bb-90dd12fadd16" />
+
+### Basics of Docker & Kubernetes
+- Kubernetes also known as K8
+- Container are complete isolated env - mount path, network, process
+- Docker containers share same base kernal (linux, ubuntu, debian, fedora)
+- Docker for windows require different kernal.
+- Docker - less memory, less bott up time, less isolation
+- Docker Public Registry - Docker hub (nodejs, mongodb, etc)
+- Image - is a package, used to create one or more container
+- Container - running isolated process
+
+# Virtual Machines vs Docker
+<img width="665" height="411" alt="image" src="https://github.com/user-attachments/assets/215b9d95-31ad-41a1-aac9-610f136cd3d9" />
+
+### Container Orchestration
+- Kubernetes - automatically deploying, scale up, scale down, manage
+- Docker Swarm (easy but lacks advanced feature), kubernetes (mostly used), mesos, etc
+- Advantage - highly available, load balanced during peak time
 
 
 - Redhat Console Sandbox - [https://console.redhat.com/openshift/sandbox]
