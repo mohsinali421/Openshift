@@ -44,6 +44,11 @@
 - Dev Cluster - [https://console-openshift-console.apps.sandbox-m4.g2pi.p1.openshiftapps.com/add/ns/mohsinali421-dev]
 - Youtube Video - [https://www.youtube.com/watch?v=vu5w74xfLcA&t=132s]
 
+### OC
+- oc commands are similar to kubectl for kubernetes
+- Install oc in windows - https://access.redhat.com/downloads/content/290/ver=4.19/rhel---9/4.19.13/x86_64/product-software
+- oc login
+
 ### Login Commands
 - login to sandbox -> ? -> command line tools
 - oc
@@ -53,11 +58,64 @@
 - oc whoami
 - oc logout
 
+  
+### Projects
+- various teams work separately under projects
+- projects is similar to namespace in kubernetes
+- Regualar user - developer
+- System user - for cluster & system - system admin
+- Service Accounts - for communication with various service - system-service
+
 ### Project Commands
 - oc project               [displays current project]
 - oc projects              [displays all projects]
 - oc new-project myproject [create new project]
 - oc project myproject     [switch between project]
+
+### Difference between openshift and kubernetes
+- Openshift is front door of underlying kubernetes and other features
+- Openshift is considered as PaaS
+- It can be installed in On Prem, Cloud, etc
+- Kubernetes is opensource and no enterprise support of redhat.
+
+### Deployment vs Deployment config
+- Deployment - Controller for a pod & Specify container specs & replicas { Here we have Replication Sets }
+- Deployment config - 80% same, deployment template, manage images and configuration, specify container specs { Here we have Replication Controller }
+
+### Image Stream
+- does not contain actual image but source of image like (helm, register, external storage)
+- checks if new image available then it updates
+- Builds -> imagestreams
+
+### Build
+- takes code and make it container image like docker file build
+  
+### BuildConfig
+- take source code build and create container image
+- automatically created for you
+
+### Routes
+- exposing a service to a hostname (www.google.com)
+- URL tagged to a service
+
+### Build Configuration strategies
+- Source to image (docker)
+- Pipeline - Jenkins Pipeline
+- Docker - docker build command (expect docker file in same repo as code)
+- Custom Build Strategy for custom build image
+
+### Build Input
+- Git
+- DockerFile
+- Binary
+- Image
+- Input Secrets
+- External Artifacts
+
+### S2I
+- Source to Image Build
+- Create docker image from source code
+
 
 ### Explain documentaion commands
 - oc explain
