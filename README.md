@@ -1,7 +1,8 @@
 # This is for Openshift
 <img width="895" height="455" alt="image" src="https://github.com/user-attachments/assets/4a09f9b4-759c-46d9-b725-bbdf55d41b26" />
 
-![Uploading image.png…]()
+<img width="583" height="237" alt="image" src="https://github.com/user-attachments/assets/6889ad6f-d610-4f5b-8405-537caa9a8ea1" />
+
 
 
 
